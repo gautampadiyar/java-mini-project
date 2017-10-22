@@ -1,1 +1,4 @@
 *.class
+/Eventclasses/nbproject/private/
+/Eventclasses/dist/
+/Eventclasses/build/
