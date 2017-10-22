@@ -4,3 +4,9 @@ manifest.mf
 /nbproject/
 /test/
 *.class
+
+*.gradle
+
+*.xml
+
+*.iml
