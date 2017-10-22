@@ -1,12 +1,11 @@
+/dist/
 /build/
 build.xml
 manifest.mf
 /nbproject/
 /test/
 *.class
-
+.DS_Store
 *.gradle
-
 *.xml
-
 *.iml
