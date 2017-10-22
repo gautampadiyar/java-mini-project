@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-*.class
-/Eventclasses/nbproject/private/
-/Eventclasses/dist/
-/Eventclasses/build/
-=======
+/dist/
 /build/
 build.xml
 manifest.mf
 /nbproject/
 /test/
 *.class
->>>>>>> 21635e4c8e1edbd4f5a90d66a594f241c423e7ef
+.DS_Store
