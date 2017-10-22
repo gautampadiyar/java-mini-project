@@ -6,3 +6,6 @@ manifest.mf
 /test/
 *.class
 .DS_Store
+*.gradle
+*.xml
+*.iml

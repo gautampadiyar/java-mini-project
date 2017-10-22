@@ -9,7 +9,7 @@ package Other;
  *
  * @author temutai
  */
-public class main {
+public class Main {
     public static void main(String[] args) {
            
        }
