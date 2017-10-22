@@ -1,3 +1,5 @@
+package Core;
+
 import java.util.*;
 import java.time.*;
 import java.text.SimpleDateFormat;
@@ -13,7 +15,7 @@ import java.text.ParseException;
  *
  * @author naijoesrinivasan
  */
-public class Event {
+public class Event implements Comparable<Event>{
     private Date startDate,endDate;
     private String start,end;
     static Date currDate = new Date();
@@ -26,7 +28,7 @@ public class Event {
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
         
-        System.out.println("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+        System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         start = scan.nextLine();
         
         startDate = new Date();
@@ -42,7 +44,7 @@ public class Event {
             }
         }
         
-        System.out.println("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+        System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         end = scan.nextLine();
         
         endDate = new Date();
@@ -63,5 +65,23 @@ public class Event {
         System.out.println("End date and time: "+sdf.format(endDate));
         System.out.println("Current date and time: "+sdf.format(currDate));
         System.out.println(String.valueOf(startDate.getTime()));
+    }
+
+    @Override
+    public int compareTo(Event t) {
+        if(this.startDate.equals(t.startDate)) {
+            return this.endDate.compareTo(t.endDate);
+        }
+        else {
+           return this.startDate.compareTo(t.endDate);
+        }
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
     }
 }
