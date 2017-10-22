@@ -3,7 +3,12 @@ package Core;
 import java.util.*;
 
 public class User {
+    private String name, userId;
     private ArrayList<Event> schedule, pref1, pref2;
+    public User(String name) {
+        this.name = name;
+        userId = UUID.randomUUID().toString();
+    }
     void setSchedule() {
         schedule = new ArrayList<>();
         Collections.sort(pref1);
