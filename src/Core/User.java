@@ -11,16 +11,28 @@ public class User {
     }
     void setSchedule() {
         schedule = new ArrayList<>();
-        Collections.sort(pref1);
-        Collections.sort(pref2);
+        ArrayList<Event> pref = new ArrayList<>();
+        pref.addAll(pref1);
+        pref.addAll(pref2);
+        Collections.sort(pref);
         Event prev = null;
         //prev is initialised to have start and end time as beginning of the day
-        for(Event e:pref1) {
+        for(Event e:pref) {
             if(e.getStartDate().compareTo(prev.getEndDate()) > 0) {
                 schedule.add(e);
             }
-            else {
-                //TODO resolve the conflict. ask user which eventS to keep
+            else if(e.getPriority() == 1){
+                for(Event x:schedule) {
+                    if(x.getEndDate().compareTo(e.getStartDate())>0) {
+                        if(x.getPriority() > 1) {
+                            schedule.remove(x);
+                            //hope this doesn't create problems, as i'm traversing the array at x here
+                        }
+                        else {
+                            //TODO resolve the conflict. ask user which eventS to keep
+                        }
+                    }
+                }
             }
             prev = e;
         }

@@ -17,6 +17,8 @@ import java.text.ParseException;
  */
 public class Event implements Comparable<Event>{
     private Date startDate,endDate;
+    private int priority = 3;
+
     //get user input for start and end date and time
     public void getDetails(){
         String start,end;
@@ -67,5 +69,9 @@ public class Event implements Comparable<Event>{
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }
