@@ -10,3 +10,17 @@ Output : would be a chronological schedule which the attendee can follow to make
 - Aditya Subramanian
 - Gautam Padiyar
 - Naijoe Srinivasan
+
+## Dependencies
+*gson* - A Java serialization/deserialization library to convert Java Objects into JSON and back
+
+If using netbeans/eclipse (any non gradle based system)
+- Download the latest "gson-x.x.x.jar" from http://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.2/
+
+If using Android Studio (any gradle based system)
+- Add the following to your build.gradle
+```
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.2'
+}
+```
