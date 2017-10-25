@@ -17,11 +17,12 @@ import java.text.ParseException;
  */
 public class Event implements Comparable<Event>{
     private Date startDate,endDate;
+    private String eventID = UUID.randomUUID().toString().substring(5), eventName;
     private int priority = 3;
 
     //get user input for start and end date and time
     public void getDetails(){
-        String start,end;
+        String start, end;
         Scanner scan = new Scanner(System.in);
         
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
@@ -62,9 +63,16 @@ public class Event implements Comparable<Event>{
            return this.startDate.compareTo(t.endDate);
         }
     }
-
+    public void showEvent() {
+        System.out.println(this.eventID + " " + this.eventName);
+    }
+    
     public Date getStartDate() {
         return startDate;
+    }
+    
+    public String getEventID() {
+        return eventID;
     }
 
     public Date getEndDate() {
@@ -73,5 +81,9 @@ public class Event implements Comparable<Event>{
 
     public int getPriority() {
         return priority;
+    }
+
+    public String getEventName() {
+        return eventName;
     }
 }
