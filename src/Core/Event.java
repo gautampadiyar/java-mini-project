@@ -18,15 +18,28 @@ import java.text.ParseException;
 public class Event implements Comparable<Event>{
     private Date startDate,endDate;
     private String start,end;
+    Location loc;
     static Date currDate = new Date();
     
     //get user input for start and end date and time
     public void getDetails(){
+        String l_name;
+        double lat,lon;
+        
         Scanner scan = new Scanner(System.in);
         
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
+        
+        System.out.print("Enter the name of the event location: ");
+        l_name = scan.nextLine();
+        System.out.print("Enter the latitude of the location: ");
+        lat = scan.nextDouble();
+        System.out.print("Enter the longitude of the location: ");
+        lon = scan.nextDouble();
+
+        loc = new Location(l_name,lat,lon);
         
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         start = scan.nextLine();
@@ -65,6 +78,12 @@ public class Event implements Comparable<Event>{
         System.out.println("End date and time: "+sdf.format(endDate));
         System.out.println("Current date and time: "+sdf.format(currDate));
         System.out.println(String.valueOf(startDate.getTime()));
+        
+        //location details
+        System.out.println("Location: "+loc.name);
+        System.out.println("Latitude: "+loc.latitude);
+        System.out.println("Longitude: "+loc.longitude);
+        
     }
 
     @Override
@@ -83,5 +102,19 @@ public class Event implements Comparable<Event>{
 
     public Date getEndDate() {
         return endDate;
+    }
+}
+
+class Location { 
+    public String name;
+    public double longitude;
+    public double latitude;   
+   
+    // create and initialize a point with given name and
+    // (latitude, longitude) specified in degrees
+    public Location(String name, double latitude, double longitude) {
+        this.name = name;
+        this.latitude  = latitude;
+        this.longitude = longitude;
     }
 }
