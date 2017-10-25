@@ -1,5 +1,4 @@
 package Other;
-import Core.Event;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -9,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import Core.Event;
 
 public class NetClientGet {
 
@@ -21,6 +21,7 @@ public class NetClientGet {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             Gson sd = new Gson();
+            // TODO: put gson in build settings so that it is IDE independant
 
             System.out.println(conn.toString());
 

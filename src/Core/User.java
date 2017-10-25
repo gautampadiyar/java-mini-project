@@ -2,6 +2,7 @@ package Core;
 
 import Other.Main;
 import java.util.*;
+import Core.Event;
 
 public class User {
     private String name, userId;

@@ -1,26 +1,19 @@
 package Core;
 
-import java.util.*;
-import java.time.*;
-import java.text.SimpleDateFormat;
-import java.lang.Object;
-import java.text.ParseException;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Created by gautam on 23/10/17.
  */
 
-/**
- *
- * @author naijoesrinivasan
- */
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.time.*;
+
 public class Event implements Comparable<Event>{
     private Date startDate,endDate;
     private String start,end;
     Location loc;
     static Date currDate = new Date();
-  
     private String eventID = UUID.randomUUID().toString().substring(5), eventName;
     private int priority = 3;
     
@@ -28,11 +21,9 @@ public class Event implements Comparable<Event>{
     public void getDetails(){
         String l_name;
         double lat,lon;
-        String start, end;
-        static Date currDate = new Date();
         
         Scanner scan = new Scanner(System.in);
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
@@ -47,24 +38,26 @@ public class Event implements Comparable<Event>{
         loc = new Location(l_name,lat,lon);
         
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+
         start = scan.nextLine();
-        
+
         startDate = new Date();
         try {
             startDate = sdf.parse(start);
         }catch (ParseException e){
-        	System.out.println("Parse error!");
+            System.out.println("Parse error!");
         }
         finally{
             if(!startDate.after(currDate)){
-        	System.out.println("Invalid start date entered");
+                System.out.println("Invalid start date entered");
                 System.out.println("Enter a valid date after "+sdf.format(currDate));
             }
         }
-        
-        System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+
+
+        System.out.println("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         end = scan.nextLine();
-        
+
         endDate = new Date();
         try {
             endDate = sdf.parse(end);
@@ -73,11 +66,11 @@ public class Event implements Comparable<Event>{
         }
         finally{
             if(!currDate.before(endDate) || !startDate.before(endDate)){
-        	System.out.println("Invalid end date entered");
+                System.out.println("Invalid end date entered");
                 System.out.println("Enter a valid date after "+sdf.format(startDate));
             }
         }
-        
+
         //checking if string type has been converted to date objects
         System.out.println("Start date and time: "+sdf.format(startDate));
         System.out.println("End date and time: "+sdf.format(endDate));
@@ -97,7 +90,7 @@ public class Event implements Comparable<Event>{
             return this.endDate.compareTo(t.endDate);
         }
         else {
-           return this.startDate.compareTo(t.endDate);
+            return this.startDate.compareTo(t.endDate);
         }
     }
     public void showEvent() {
