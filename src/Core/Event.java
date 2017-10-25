@@ -23,17 +23,29 @@ public class Event implements Comparable<Event>{
     //get user input for start and end date and time
     public void getDetails(){
         String start, end;
+
+        static Date currDate = new Date();
+
         Scanner scan = new Scanner(System.in);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
+        sdf.setLenient(false);
         
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         start = scan.nextLine();
         
         startDate = new Date();
         try {
-            startDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(start);
+            startDate = sdf.parse(start);
         }catch (ParseException e){
-        	System.out.println("parse error");
-                //TODO handle the exception better, take input in proper format
+        	System.out.println("Parse error!");
+        }
+        finally{
+            if(!startDate.after(currDate)){
+        	System.out.println("Invalid start date entered");
+                System.out.println("Enter a valid date after "+sdf.format(currDate));
+            }
         }
         
         System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
@@ -41,16 +53,21 @@ public class Event implements Comparable<Event>{
         
         endDate = new Date();
         try {
-            endDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(end);
+            endDate = sdf.parse(end);
         }catch (ParseException e){
-
+            System.out.println("Parse error!");
+        }
+        finally{
+            if(!currDate.before(endDate) || !startDate.before(endDate)){
+        	System.out.println("Invalid end date entered");
+                System.out.println("Enter a valid date after "+sdf.format(startDate));
+            }
         }
         
         //checking if string type has been converted to date objects
-        System.out.println("Start date: "+ new SimpleDateFormat("dd/MM/yyyy").format(startDate));
-        System.out.println("Start time: "+ new SimpleDateFormat("HH:mm:ss").format(startDate));
-        System.out.println("End date: "+new SimpleDateFormat("dd/MM/yyyy").format(endDate));
-        System.out.println("End time: "+new SimpleDateFormat("HH:mm:ss").format(endDate));
+        System.out.println("Start date and time: "+sdf.format(startDate));
+        System.out.println("End date and time: "+sdf.format(endDate));
+        System.out.println("Current date and time: "+sdf.format(currDate));
         System.out.println(String.valueOf(startDate.getTime()));
     }
 
