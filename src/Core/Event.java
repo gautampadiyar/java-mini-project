@@ -20,11 +20,16 @@ public class Event implements Comparable<Event>{
     private String start,end;
     Location loc;
     static Date currDate = new Date();
+  
+    private String eventID = UUID.randomUUID().toString().substring(5), eventName;
+    private int priority = 3;
     
     //get user input for start and end date and time
     public void getDetails(){
         String l_name;
         double lat,lon;
+        String start, end;
+        static Date currDate = new Date();
         
         Scanner scan = new Scanner(System.in);
         
@@ -95,13 +100,28 @@ public class Event implements Comparable<Event>{
            return this.startDate.compareTo(t.endDate);
         }
     }
-
+    public void showEvent() {
+        System.out.println(this.eventID + " " + this.eventName);
+    }
+    
     public Date getStartDate() {
         return startDate;
+    }
+    
+    public String getEventID() {
+        return eventID;
     }
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public String getEventName() {
+        return eventName;
     }
 }
 
