@@ -6,7 +6,8 @@ import Core.Event;
 
 public class User {
     private String name, userId;
-    private ArrayList<Event> schedule, pref1, pref2;
+    private ArrayList<Event> schedule;
+    private HashSet<Event> pref1, pref2;
     Scanner scan = new Scanner(System.in);
     
     public User(String name) {
@@ -69,7 +70,7 @@ public class User {
         } 
     }
     void setPref1() {
-        pref1 = new ArrayList<>();
+        pref1 = new HashSet<>();
         System.out.println("Event List");
         for(Event e:Main.events) {
             e.showEvent();
@@ -89,7 +90,18 @@ public class User {
         }
     }
     void setPref2() {
-        pref2 = new ArrayList<>();
-        //TODO populate pref2
+        //adds events to pref2 based on tags/categories of events in pref1
+        HashSet<Category> pref2Cat = new HashSet<>();
+        pref2 = new HashSet<>();
+        for(Event e:pref1) {
+            for(Category c:e.getCategories()) {
+                pref2Cat.add(c);
+            }
+        }
+        for(Category c:pref2Cat) {
+            for(Event e:c.getEvents()) {
+                pref2.add(e);
+            }
+        }
     }
 }

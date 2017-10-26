@@ -16,6 +16,11 @@ public class Event implements Comparable<Event>{
     static Date currDate = new Date();
     private String eventID = UUID.randomUUID().toString().substring(5), eventName;
     private int priority = 3;
+    private ArrayList<Category> categories;
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
     
     //get user input for start and end date and time
     public void getDetails(){
