@@ -98,6 +98,18 @@ public class Event implements Comparable<Event>{
             return this.startDate.compareTo(t.endDate);
         }
     }
+
+    public void setEndDate(String endDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
+        sdf.setLenient(false);
+        try {
+            this.endDate = sdf.parse(endDate);
+        }catch (ParseException e){
+            System.out.println("Parse error!");
+        }
+    }
+    
     public void showEvent() {
         System.out.println(this.eventID + " " + this.eventName);
     }

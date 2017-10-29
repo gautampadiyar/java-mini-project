@@ -57,8 +57,9 @@ public class User {
         pref.addAll(pref1);
         pref.addAll(pref2);
         Collections.sort(pref);
-        Event prev = null;
-        //TODO prev is initialised to have start and end time as beginning of the day
+        Event prev = new Event();
+        prev.setEndDate("01/01/2000 00:00:00");
+        //TODO set this assignment to start of fest if possible
         for(Event e:pref) {
             if(e.getStartDate().compareTo(prev.getEndDate()) > 0) {
                 schedule.add(e);
