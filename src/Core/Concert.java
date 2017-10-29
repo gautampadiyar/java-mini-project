@@ -4,41 +4,54 @@ import java.util.*;
 
 public class Concert extends Event {
 	static long noTickets;
-	public long price,numSpo,numDj;
-	public String theme,details;
-	public String[] sponsors,dJ;
+	public long price;
+	public String info;
+	public ArrayList<String> sponsors,dJ,themes;
 
 	public void additional(){
    		Scanner scan = new Scanner(System.in);
+   		char choice = 'Y';
+   		String temp;
 
-   		System.out.print("Enter the theme of the concert: ");
-   		theme = scan.nextLine();
+   		sponsors = new ArrayList<String>();
+   		dJ = new ArrayList<String>();
+   		themes = new ArrayList<String>();
 
-   		System.out.print("Enter a summary of the concert: ");
-   		details = scan.nextLine();
+		System.out.println("Concert information: ");
+   		info = scan.nextLine();
 
-   		System.out.print("Enter the number of DJ's performing: ");
-   		numDj = scan.nextInt();
-
-   		for(int i=0;i<numDj;++i){
-   			System.out.print("Enter the name of DJ no."+(i+1)+": ");
-   			dJ[i] = new String();
-   			dJ[i] = scan.nextLine();
-   		}
-
-   		System.out.print("Enter the number of sponsors: ");
-   		numSpo = scan.nextInt();
-
-   		for(int i=0;i<numSpo;++i){
-   			System.out.print("Enter sponsor no."+(i+1)+": ");
-   			sponsors[i] = new String();
-   			sponsors[i] = scan.nextLine();
-   		}
-
-   		System.out.print("Enter the number of tickets available: ");
+		System.out.print("Enter the number of tickets available: ");
    		noTickets = scan.nextLong();
 
 		System.out.print("Enter the price of a ticket: ");
-		price = scan.nextLong();   		
+		price = scan.nextLong(); 
+
+   		System.out.println("Themes: ");
+   		while(choice!='N'){
+   			temp = scan.nextLine();
+   			themes.add(temp);
+   			System.out.print("Do you wish to continue?(Y/N): ");
+   			choice = scan.next().charAt(0);
+   		}
+
+   		choice = 'Y';
+
+   		System.out.println("DJ: ");
+   		while(choice!='N'){
+   			temp = scan.nextLine();
+   			dJ.add(temp);
+   			System.out.print("Do you wish to continue?(Y/N): ");
+   			choice = scan.next().charAt(0);
+		}
+
+		choice = 'Y';
+
+		System.out.println("Sponsors: ");
+   		while(choice!='N'){
+   			temp = scan.nextLine();
+   			sponsors.add(temp);
+   			System.out.print("Do you wish to continue?(Y/N): ");
+   			choice = scan.next().charAt(0);
+		}  		
    	}
 }

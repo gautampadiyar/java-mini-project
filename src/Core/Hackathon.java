@@ -3,26 +3,37 @@ package Core;
 import java.util.*;
 
 public class Hackathon extends Event{
-   	public String theme,details;
-   	public String[] sponsors;
-   	long cash1,cash2,cash3,numSpo;
+   	public String info;
+   	public ArrayList<String> sponsors,themes;
+   	long cash1,cash2,cash3;
 
    	public void additional(){
    		Scanner scan = new Scanner(System.in);
+   		String temp;
+   		char choice = 'Y';
 
-   		System.out.print("Enter the theme: ");
-   		theme = scan.nextLine();
+   		sponsors = new ArrayList<String>();
+   		themes = new ArrayList<String>();
 
-   		System.out.print("Enter a summary of the hackathon: ");
-   		details = scan.nextLine();
+   		System.out.print("Hackathon information: ");
+   		info = scan.nextLine();
 
-   		System.out.print("Enter the number of sponsors: ");
-   		numSpo = scan.nextInt();
+   		System.out.println("Themes: ");
+   		while(choice!='N'){
+   			temp = scan.nextLine();
+   			themes.add(temp);
+   			System.out.print("Do you wish to continue?(Y/N): ");
+   			choice = scan.next().charAt(0);
+   		}
 
-   		for(int i=0;i<numSpo;++i){
-   			System.out.print("Enter sponsor no."+(i+1)+": ");
-   			sponsors[i] = new String();
-   			sponsors[i] = scan.nextLine();
+   		choice = 'Y';
+
+   		System.out.println("Sponsors: ");
+   		while(choice!='N'){
+   			temp = scan.nextLine();
+   			sponsors.add(temp);
+   			System.out.print("Do you wish to continue?(Y/N): ");
+   			choice = scan.next().charAt(0);
    		}
 
    		System.out.println("Enter the cash prize for the winner: ");
