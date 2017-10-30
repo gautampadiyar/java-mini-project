@@ -92,16 +92,18 @@ public class User {
     }
     void setPref2() {
         //adds events to pref2 based on tags/categories of events in pref1
-        HashSet<Category> pref2Cat = new HashSet<>();
+        HashSet<String> pref2Cat = new HashSet<>();
         pref2 = new HashSet<>();
         for(Event e:pref1) {
-            for(Category c:e.getCategories()) {
-                pref2Cat.add(c);
+            for(String s:e.getTags()) {
+                pref2Cat.add(s);
             }
         }
-        for(Category c:pref2Cat) {
-            for(Event e:c.getEvents()) {
-                pref2.add(e);
+        for(String s:pref2Cat) {
+            for(Event e:Main.events) {
+                if(e.getTags().contains(s)) {
+                    pref2.add(e);
+                }
             }
         }
     }
