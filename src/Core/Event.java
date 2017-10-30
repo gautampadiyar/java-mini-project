@@ -14,21 +14,23 @@ public class Event implements Comparable<Event>{
     private String start,end;
     Location loc;
     static Date currDate = new Date();
-    private String eventID = UUID.randomUUID().toString().substring(5), eventName;
+    private String eventID = UUID.randomUUID().toString().substring(0, 5), eventName;
     private int priority = 3;
-    private ArrayList<String> tags;
+    private ArrayList<String> tags = new ArrayList<>();
 
     public ArrayList<String> getTags() {
         return tags;
     }
 
-    Event(String start, String end){
+    public Event(String start, String end){
         this.start = start;
         this.end = end;
     }
     
-    //get user input for start and end date and time
+    public Event() {}
+    
     public void getDetails(){
+        //TODO also input for tags
         String l_name;
         double lat,lon;
         
@@ -37,7 +39,7 @@ public class Event implements Comparable<Event>{
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
-        
+        /*
         System.out.print("Enter the event location: ");
         l_name = scan.nextLine();
         System.out.print("Enter the latitude of the location: ");
@@ -47,7 +49,7 @@ public class Event implements Comparable<Event>{
         scan.nextLine();
 
         loc = new Location(l_name,lat,lon);
-        
+        */
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         start = scan.nextLine();
 
@@ -71,6 +73,7 @@ public class Event implements Comparable<Event>{
         try {
             endDate = sdf.parse(end);
         }catch (ParseException e){
+            //TODO somehow get back to point of the error?
             System.out.println("Parse error!");
         }
         finally{
@@ -106,7 +109,7 @@ public class Event implements Comparable<Event>{
         }
     }
     
-    public void showEvent() {
+    public void showEventGist() {
         System.out.println(this.eventID + " " + this.eventName);
     }
     
