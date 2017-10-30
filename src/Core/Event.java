@@ -39,11 +39,11 @@ public class Event implements Comparable<Event>{
         lat = scan.nextDouble();
         System.out.print("Enter the longitude of the location: ");
         lon = scan.nextDouble();
+        scan.nextLine();
 
         loc = new Location(l_name,lat,lon);
         
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
-
         start = scan.nextLine();
 
         startDate = new Date();
@@ -58,9 +58,8 @@ public class Event implements Comparable<Event>{
                 System.out.println("Enter a valid date after "+sdf.format(currDate));
             }
         }
-
-
-        System.out.println("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+        
+        System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         end = scan.nextLine();
 
         endDate = new Date();
@@ -97,6 +96,16 @@ public class Event implements Comparable<Event>{
         else {
             return this.startDate.compareTo(t.endDate);
         }
+    }
+    public void showInfo(){
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
+        sdf.setLenient(false);
+        System.out.println("START DATE AND TIME: "+sdf.format(startDate));
+        System.out.println("END DATE AND TIME: "+sdf.format(endDate));
+        System.out.println("LOCATION: "+loc.name);
+        System.out.println("LATITUDE: "+loc.latitude);
+        System.out.println("LONGITUDE: "+loc.longitude);
     }
     public void showEvent() {
         System.out.println(this.eventID + " " + this.eventName);
