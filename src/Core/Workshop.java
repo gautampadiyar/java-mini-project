@@ -34,4 +34,5 @@ public class Workshop extends Event {
    			choice = scan.next().charAt(0);
    		}
 	}
+
 }

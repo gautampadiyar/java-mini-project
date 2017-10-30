@@ -21,7 +21,6 @@ public class NetClientGet {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             Gson sd = new Gson();
-            // TODO: put gson in build settings so that it is IDE independant
 
             System.out.println(conn.toString());
 

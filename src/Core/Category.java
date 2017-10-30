@@ -2,6 +2,7 @@ package Core;
 
 import java.util.ArrayList;
 
+import Event;
 /**
  *
  * @author temutai

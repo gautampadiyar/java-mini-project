@@ -21,6 +21,11 @@ public class Event implements Comparable<Event>{
     public ArrayList<Category> getCategories() {
         return categories;
     }
+
+    Event(String start, String end){
+        this.start = start;
+        this.end = end;
+    }
     
     //get user input for start and end date and time
     public void getDetails(){
@@ -89,6 +94,10 @@ public class Event implements Comparable<Event>{
         
     }
 
+    public void printDates(){
+        System.out.println(start+end);
+    }
+
     @Override
     public int compareTo(Event t) {
         if(this.startDate.equals(t.startDate)) {
@@ -135,4 +144,6 @@ class Location {
         this.latitude  = latitude;
         this.longitude = longitude;
     }
+
+    // TODO id eventID is null, generate a new event ID and store it back in firebase
 }
