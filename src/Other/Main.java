@@ -1,7 +1,12 @@
 package Other;
 
 import Core.*;
+import com.google.gson.*;
+import java.io.*;
+import java.net.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,32 +26,40 @@ public class Main {
         admin_user = scan.nextInt();
         
         if(admin_user == 1){
-
             System.out.print("\nUsername: ");
             username = scan.next();
+            //TODO password ipnut in *
             System.out.print("Password: ");
             pass = scan.next();
             
             if(username.equals(admin) && pass.equals(password)){
-                System.out.print("\n1.Create Event\n2.Logout\nEnter your choice: ");
+                System.out.print("\n1.Create Event\n2.View Events\n3.Logout\nEnter your choice: ");
                 eventChoice = scan.nextInt();
             // add an option for viewing events
-                while(eventChoice!=3){
+                while(eventChoice!=4){
                     switch(eventChoice){
-                        case 1:System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\nEnter your choice: ");
-                               create = scan.nextInt();
-                                if(create == 1)
-                                    createHackathon(events);
-                                else if(create == 2)
-                                    createConcert(events);
-                                else if(create == 3)
-                                    createWorkshop(events);
-                                break;
-                        case 2:break;
-                        default:System.out.println("\nWrong choice!Please choose again.");
-                                break;
+                        case 1:
+                            System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\n4.Create general Event\nEnter your choice: ");
+                            create = scan.nextInt();
+                            if(create == 1)
+                                createHackathon();
+                            else if(create == 2)
+                                createConcert();
+                            else if(create == 3)
+                                createWorkshop();
+                            else if(create == 4)
+                                createEvent();
+                            break;
+                        case 2: 
+                            viewEvents();
+                            break;
+                        case 3: 
+                            break;
+                        default:
+                            System.out.println("\nWrong choice!Please choose again.");
+                            break;
                     }
-                    System.out.print("\n1.Create Event\n3.Logout\nEnter your choice: ");
+                    System.out.print("\n1.Create Event\n2.View Events\n3.Logout\nEnter your choice: ");
                     eventChoice = scan.nextInt();
                 }
             }
@@ -55,38 +68,40 @@ public class Main {
         }
 
         else if(admin_user == 2){
-            
+            //TODO code for attendee
         }
         else
             System.out.println("Wrong choice!");
     }
     
-    static void createHackathon(ArrayList<Event> events){
+    static void createHackathon(){
         Hackathon hackathon = new Hackathon();
         hackathon.getDetails();
-        hackathon.additional();
         events.add((Event)hackathon);
     }
     
-    static void createConcert(ArrayList<Event> events){
+    static void createConcert(){
         Concert concert = new Concert();
         concert.getDetails();
-        concert.additional();
         events.add((Event)concert);
     }
     
-    static void createWorkshop(ArrayList<Event> events){
+    static void createWorkshop(){
         Workshop workshop = new Workshop();
         workshop.getDetails();
-        workshop.additional();
         events.add((Event)workshop);
+    }
+    
+    static void createEvent(){
+        Event e = new Event();
+        e.getDetails();
+        events.add(e);
     }
     
     static void viewEvents(){
     	// fetch the events from firebase and display it
 
-		try {
-
+        try {
             URL url = new URL("https://java-final-proj.firebaseio.com/fests/Breeze/Events.json");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -127,7 +142,8 @@ public class Main {
             for(Event e: events){
             	e.printDates();
             }
-
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
 }

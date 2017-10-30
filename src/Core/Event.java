@@ -22,10 +22,12 @@ public class Event implements Comparable<Event>{
         return tags;
     }
 
-    Event(String start, String end){
+    public Event(String start, String end){
         this.start = start;
         this.end = end;
     }
+    
+    public Event() {}
     
     //get user input for start and end date and time
     public void getDetails(){
