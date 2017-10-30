@@ -12,6 +12,7 @@ public class Concert extends Event {
    		Scanner scan = new Scanner(System.in);
    		char choice = 'Y';
    		String temp;
+                long i=1;
 
    		sponsors = new ArrayList<String>();
    		dJ = new ArrayList<String>();
@@ -28,30 +29,41 @@ public class Concert extends Event {
 
    		System.out.println("Themes: ");
    		while(choice!='N'){
+                        System.out.print("Theme "+i+": ");
    			temp = scan.nextLine();
    			themes.add(temp);
    			System.out.print("Do you wish to continue?(Y/N): ");
    			choice = scan.next().charAt(0);
+                        scan.nextLine();
+                        i++;
    		}
 
    		choice = 'Y';
+                i=1;
 
    		System.out.println("DJ: ");
    		while(choice!='N'){
+                        System.out.print("DJ "+i+": ");
    			temp = scan.nextLine();
    			dJ.add(temp);
    			System.out.print("Do you wish to continue?(Y/N): ");
    			choice = scan.next().charAt(0);
+                        scan.nextLine();
+                        i++;
 		}
 
 		choice = 'Y';
+                i=1;
 
 		System.out.println("Sponsors: ");
    		while(choice!='N'){
+                        System.out.print("Sponsor "+i+": ");
    			temp = scan.nextLine();
    			sponsors.add(temp);
    			System.out.print("Do you wish to continue?(Y/N): ");
    			choice = scan.next().charAt(0);
+                        scan.nextLine();
+                        i++;
 		}  		
    	}
 }

@@ -38,17 +38,17 @@ public class Event implements Comparable<Event>{
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
         
-        System.out.print("Enter the name of the event location: ");
+        System.out.print("Enter the event location: ");
         l_name = scan.nextLine();
         System.out.print("Enter the latitude of the location: ");
         lat = scan.nextDouble();
         System.out.print("Enter the longitude of the location: ");
         lon = scan.nextDouble();
+        scan.nextLine();
 
         loc = new Location(l_name,lat,lon);
         
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
-
         start = scan.nextLine();
 
         startDate = new Date();
@@ -63,9 +63,8 @@ public class Event implements Comparable<Event>{
                 System.out.println("Enter a valid date after "+sdf.format(currDate));
             }
         }
-
-
-        System.out.println("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+        
+        System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
         end = scan.nextLine();
 
         endDate = new Date();
@@ -80,18 +79,6 @@ public class Event implements Comparable<Event>{
                 System.out.println("Enter a valid date after "+sdf.format(startDate));
             }
         }
-
-        //checking if string type has been converted to date objects
-        System.out.println("Start date and time: "+sdf.format(startDate));
-        System.out.println("End date and time: "+sdf.format(endDate));
-        System.out.println("Current date and time: "+sdf.format(currDate));
-        System.out.println(String.valueOf(startDate.getTime()));
-        
-        //location details
-        System.out.println("Location: "+loc.name);
-        System.out.println("Latitude: "+loc.latitude);
-        System.out.println("Longitude: "+loc.longitude);
-        
     }
 
     public void printDates(){
@@ -107,6 +94,7 @@ public class Event implements Comparable<Event>{
             return this.startDate.compareTo(t.endDate);
         }
     }
+  
     public void showEvent() {
         System.out.println(this.eventID + " " + this.eventName);
     }
