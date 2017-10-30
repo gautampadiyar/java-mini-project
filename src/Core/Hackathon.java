@@ -11,6 +11,7 @@ public class Hackathon extends Event{
    		Scanner scan = new Scanner(System.in);
    		String temp;
    		char choice = 'Y';
+                long i=1;
 
    		sponsors = new ArrayList<String>();
    		themes = new ArrayList<String>();
@@ -20,29 +21,36 @@ public class Hackathon extends Event{
 
    		System.out.println("Themes: ");
    		while(choice!='N'){
+                        System.out.print("Theme "+i+": ");
    			temp = scan.nextLine();
    			themes.add(temp);
    			System.out.print("Do you wish to continue?(Y/N): ");
    			choice = scan.next().charAt(0);
+                        scan.nextLine();
+                        i++;
    		}
 
    		choice = 'Y';
+                i=1;
 
    		System.out.println("Sponsors: ");
    		while(choice!='N'){
+                        System.out.print("Sponsor "+i+": ");
    			temp = scan.nextLine();
    			sponsors.add(temp);
    			System.out.print("Do you wish to continue?(Y/N): ");
    			choice = scan.next().charAt(0);
+                        scan.nextLine();
+                        i++;
    		}
 
-   		System.out.println("Enter the cash prize for the winner: ");
+   		System.out.print("Enter the cash prize for the winner: ");
    		cash1 = scan.nextLong(); 
 
-   		System.out.println("Enter the cash prize for the first runner up: ");
+   		System.out.print("Enter the cash prize for the first runner up: ");
    		cash2 = scan.nextLong();
 
-   		System.out.println("Enter the cash prize for the second runner up: ");
-   		cash2 = scan.nextLong();
+   		System.out.print("Enter the cash prize for the second runner up: ");
+   		cash3 = scan.nextLong();
    	}
 }

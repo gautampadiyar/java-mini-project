@@ -11,6 +11,7 @@ public class Workshop extends Event {
 		Scanner scan = new Scanner(System.in);
 		String temp;
 		char choice = 'Y';
+                long i=1;
                 
                 sponsors = new ArrayList<String>();
 
@@ -28,10 +29,14 @@ public class Workshop extends Event {
 
    		System.out.println("Sponsors: ");
    		while(choice!='N'){
+                        System.out.print("Sponsor "+i+": ");
    			temp = scan.nextLine();
    			sponsors.add(temp);
    			System.out.print("Do you wish to continue?(Y/N): ");
    			choice = scan.next().charAt(0);
+                        scan.nextLine();
+                        i++;
    		}
 	}
+        
 }
