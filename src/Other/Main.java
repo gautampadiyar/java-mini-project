@@ -132,8 +132,10 @@ public class Main {
                 System.out.println(output);
                 sb.append(output);
             }
+            JsonParser parser = new JsonParser();
             JsonObject jObj = new JsonObject();
-            jObj.getAsJsonObject(sb.toString());
+
+            jObj = parser.parse(sb.toString()).getAsJsonObject();
 
             if (jObj.isJsonObject()) {
                 Set<Map.Entry<String, JsonElement>> ens = ((JsonObject) jObj).entrySet();
@@ -155,3 +157,8 @@ public class Main {
         }
     }
 }
+
+// Display event schedule with **** for giving indication of duration
+// Store the cash prizes in an array list
+// Populate the firebase event list along with all relevant details
+// rogue input not handled
