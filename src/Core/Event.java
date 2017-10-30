@@ -16,10 +16,10 @@ public class Event implements Comparable<Event>{
     static Date currDate = new Date();
     private String eventID = UUID.randomUUID().toString().substring(5), eventName;
     private int priority = 3;
-    private ArrayList<Category> categories;
+    private ArrayList<String> tags;
 
-    public ArrayList<Category> getCategories() {
-        return categories;
+    public ArrayList<String> getTags() {
+        return tags;
     }
 
     Event(String start, String end){
@@ -94,7 +94,18 @@ public class Event implements Comparable<Event>{
             return this.startDate.compareTo(t.endDate);
         }
     }
-  
+
+    public void setEndDate(String endDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
+        sdf.setLenient(false);
+        try {
+            this.endDate = sdf.parse(endDate);
+        }catch (ParseException e){
+            System.out.println("Parse error!");
+        }
+    }
+    
     public void showEvent() {
         System.out.println(this.eventID + " " + this.eventName);
     }
