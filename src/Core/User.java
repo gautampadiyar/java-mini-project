@@ -28,12 +28,12 @@ public class User {
                     //WARN hope this doesn't create problems, as i'm traversing the array at x here
                 }
                 else {
-                    x.showEvent();
+                    x.showEventGist();
                 }
             }
         }
         if(flag != 1) {
-            e.showEvent();
+            e.showEventGist();
             System.out.println("These events clash. Which events would you like to remove?");
             char ch = 'y';
             while(ch == 'y') {
@@ -70,11 +70,16 @@ public class User {
             prev = e;
         } 
     }
-    void setPref1() {
+    public void refreshSchedule() {
+        setPref2();
+        setSchedule();
+        
+    }
+    public void setPref1() {
         pref1 = new HashSet<>();
         System.out.println("Event List");
         for(Event e:Main.events) {
-            e.showEvent();
+            e.showEventGist();
         }
         char ch = 'y';
         while(ch == 'y') {
@@ -105,6 +110,12 @@ public class User {
                     pref2.add(e);
                 }
             }
+        }
+    }
+    public void showSchedule() {
+        for(Event e:schedule) {
+            e.showEventGist();
+            //get a better showEvent
         }
     }
 }

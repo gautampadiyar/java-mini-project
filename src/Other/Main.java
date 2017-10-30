@@ -19,61 +19,69 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         
         String admin = "TechFest", password = "TechFest@12345";
-        String username,pass;
-        int admin_user,eventChoice = 10,create;
-        
-        System.out.print("1.Admin\n2.Attendee\nEnter your choice: ");
-        admin_user = scan.nextInt();
-        
-        if(admin_user == 1){
-            System.out.print("\nUsername: ");
-            username = scan.next();
-            //TODO password ipnut in *
-            System.out.print("Password: ");
-            pass = scan.next();
-            
-            if(username.equals(admin) && pass.equals(password)){
-                System.out.print("\n1.Create Event\n2.View Events\n3.Logout\nEnter your choice: ");
-                eventChoice = scan.nextInt();
-            // add an option for viewing events
-                while(eventChoice!=4){
-                    switch(eventChoice){
-                        case 1:
-                            System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\n4.Create general Event\nEnter your choice: ");
-                            create = scan.nextInt();
-                            if(create == 1)
-                                createHackathon();
-                            else if(create == 2)
-                                createConcert();
-                            else if(create == 3)
-                                createWorkshop();
-                            else if(create == 4)
-                                createEvent();
-                            break;
-                        case 2: 
-                            viewEvents();
-                            break;
-                        case 3: 
-                            break;
-                        default:
-                            System.out.println("\nWrong choice!Please choose again.");
-                            break;
-                    }
+        //TODO non-hardcoded logins?
+        String username, pass;
+        int admin_user = 1, eventChoice = 10,create;
+        while(admin_user != 3) {
+            System.out.print("1.Admin\n2.Attendee\n3.Exit\nEnter your choice: ");
+            admin_user = scan.nextInt();
+
+            if(admin_user == 1){
+                System.out.print("\nUsername: ");
+                username = scan.next();
+                //TODO password ipnut in *
+                System.out.print("Password: ");
+                pass = scan.next();
+
+                if(username.equals(admin) && pass.equals(password)){
                     System.out.print("\n1.Create Event\n2.View Events\n3.Logout\nEnter your choice: ");
                     eventChoice = scan.nextInt();
+                    while(eventChoice!=3){
+                        switch(eventChoice){
+                            case 1:
+                                System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\n4.Create general Event\nEnter your choice: ");
+                                create = scan.nextInt();
+                                if(create == 1)
+                                    createHackathon();
+                                else if(create == 2)
+                                    createConcert();
+                                else if(create == 3)
+                                    createWorkshop();
+                                else if(create == 4)
+                                    createEvent();
+                                break;
+                            case 2: 
+                                viewEvents();
+                                break;
+                            case 3: 
+                                break;
+                            default:
+                                System.out.println("\nWrong choice!Please choose again.");
+                                break;
+                        }
+                        System.out.print("\n1.Create Event\n2.View Events\n3.Logout\nEnter your choice: ");
+                        eventChoice = scan.nextInt();
+                    }
                 }
+                else
+                System.out.println("Invalid username or password. Please try again.");
             }
-            else
-            System.out.println("Invalid username or password. Please try again.");
-        }
 
-        else if(admin_user == 2){
-            //TODO code for attendee
+            else if(admin_user == 2){
+                User u = new User("Balaji");
+                u.setPref1();
+                //refresh main.events before refresh schedule
+                u.refreshSchedule();
+                u.showSchedule();
+            }
+            else {
+                System.out.println("Invalid input!");
+            }
         }
-        else
-            System.out.println("Wrong choice!");
     }
-    
+    //TODO combine following 4 into one function.
+    //Suggestion, event e. make object inside the if condition. outside call getDetails
+    //inside getDetails use instanceOf
     static void createHackathon(){
         Hackathon hackathon = new Hackathon();
         hackathon.getDetails();
