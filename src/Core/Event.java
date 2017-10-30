@@ -33,7 +33,7 @@ public class Event implements Comparable<Event>{
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
         
-        System.out.print("Enter the name of the event location: ");
+        System.out.print("Enter the event location: ");
         l_name = scan.nextLine();
         System.out.print("Enter the latitude of the location: ");
         lat = scan.nextDouble();
@@ -74,18 +74,6 @@ public class Event implements Comparable<Event>{
                 System.out.println("Enter a valid date after "+sdf.format(startDate));
             }
         }
-
-        //checking if string type has been converted to date objects
-        System.out.println("Start date and time: "+sdf.format(startDate));
-        System.out.println("End date and time: "+sdf.format(endDate));
-        System.out.println("Current date and time: "+sdf.format(currDate));
-        System.out.println(String.valueOf(startDate.getTime()));
-        
-        //location details
-        System.out.println("Location: "+loc.name);
-        System.out.println("Latitude: "+loc.latitude);
-        System.out.println("Longitude: "+loc.longitude);
-        
     }
 
     @Override
@@ -97,16 +85,7 @@ public class Event implements Comparable<Event>{
             return this.startDate.compareTo(t.endDate);
         }
     }
-    public void showInfo(){
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
-        sdf.setLenient(false);
-        System.out.println("START DATE AND TIME: "+sdf.format(startDate));
-        System.out.println("END DATE AND TIME: "+sdf.format(endDate));
-        System.out.println("LOCATION: "+loc.name);
-        System.out.println("LATITUDE: "+loc.latitude);
-        System.out.println("LONGITUDE: "+loc.longitude);
-    }
+  
     public void showEvent() {
         System.out.println(this.eventID + " " + this.eventName);
     }

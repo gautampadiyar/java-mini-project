@@ -44,27 +44,13 @@ public class Hackathon extends Event{
                         i++;
    		}
 
-   		System.out.println("Enter the cash prize for the winner: ");
+   		System.out.print("Enter the cash prize for the winner: ");
    		cash1 = scan.nextLong(); 
 
-   		System.out.println("Enter the cash prize for the first runner up: ");
+   		System.out.print("Enter the cash prize for the first runner up: ");
    		cash2 = scan.nextLong();
 
-   		System.out.println("Enter the cash prize for the second runner up: ");
+   		System.out.print("Enter the cash prize for the second runner up: ");
    		cash3 = scan.nextLong();
    	}
-        
-        public void showAdditional(){
-            System.out.println("HACKATHON INFORMATION\n"+info);
-            
-            System.out.println("\nTHEMES");
-            for(String x:themes)
-                System.out.println(x);
-            
-            System.out.println("\nSPONSORS");
-            for(String x:sponsors)
-                System.out.println(x);
-            
-            System.out.println("\nCASH PRIZE 1: "+cash1+"\nCASH PRIZE 2: "+cash2+"\nCASH PRIZE 3: "+cash3+"\n");
-        }
 }

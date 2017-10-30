@@ -66,24 +66,4 @@ public class Concert extends Event {
                         i++;
 		}  		
    	}
-        
-        public void showAdditional(){
-            System.out.println("COCNERT INFORMATION\n"+info);
-            
-            System.out.println("\nTHEMES");
-            for(String x:themes)
-                System.out.println(x);
-            
-            System.out.println("\nDJ's");
-            for(String x:dJ)
-                System.out.println(x);
-            
-            System.out.println("\nSPONSORS");
-            for(String x:sponsors)
-                System.out.println(x);
-            
-            System.out.println("\nPRICE PER TICKET: "+price);
-            
-            System.out.println("\nNUMBER OF TICKETS AVAILABLE: "+noTickets+"\n");
-        }
 }

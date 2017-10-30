@@ -39,17 +39,4 @@ public class Workshop extends Event {
    		}
 	}
         
-        public void showAdditional(){
-            System.out.println("\nWORKSHOP INFORMATION\n"+info);
-            
-            System.out.println("\nTHEME\n"+theme);
-            
-            System.out.println("\nSPONSORS");
-            for(String x:sponsors)
-                System.out.println(x);
-            
-            System.out.println("\nNUMBER OF SEATS AVAILABLE"+noSeats);
-            
-            System.out.println("\nNUMBER OF MEMBERS PER GROUP"+groupSize+"\n");
-        }
 }

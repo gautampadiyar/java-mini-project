@@ -9,9 +9,6 @@ import java.util.*;
  */
 public class Main {
     public static ArrayList<Event> events = new ArrayList<>();
-    public static ArrayList<Hackathon> hackathons = new ArrayList<>();
-    public static ArrayList<Concert> concerts = new ArrayList<>();
-    public static ArrayList<Workshop> workshops = new ArrayList<>();
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         
@@ -23,33 +20,31 @@ public class Main {
         admin_user = scan.nextInt();
         
         if(admin_user == 1){
-            System.out.print("Username: ");
+            System.out.print("\nUsername: ");
             username = scan.next();
             System.out.print("Password: ");
             pass = scan.next();
             
             if(username.equals(admin) && pass.equals(password)){
-                System.out.print("1.View Events\n2.Create Event\n3.Logout\nEnter your choice: ");
+                System.out.print("\n1.Create Event\n2.Logout\nEnter your choice: ");
                 eventChoice = scan.nextInt();
             
                 while(eventChoice!=3){
                     switch(eventChoice){
-                        case 1:viewEvents(hackathons,concerts,workshops);
-                               break;
-                        case 2:System.out.print("1.Create Hackathon\n2.Create Concert\n3.Create Workshop\nEnter your choice: ");
+                        case 1:System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\nEnter your choice: ");
                                create = scan.nextInt();
                                 if(create == 1)
-                                    createHackathon(events,hackathons);
+                                    createHackathon(events);
                                 else if(create == 2)
-                                    createConcert(events,concerts);
+                                    createConcert(events);
                                 else if(create == 3)
-                                    createWorkshop(events,workshops);
+                                    createWorkshop(events);
                                 break;
-                        case 3:break;
-                        default:System.out.println("Wrong choice!Please choose again.");
+                        case 2:break;
+                        default:System.out.println("\nWrong choice!Please choose again.");
                                 break;
                     }
-                    System.out.print("1.View Events\n2.Create Event\n3.Logout\nEnter your choice: ");
+                    System.out.print("\n1.Create Event\n3.Logout\nEnter your choice: ");
                     eventChoice = scan.nextInt();
                 }
             }
@@ -64,42 +59,25 @@ public class Main {
             System.out.println("Wrong choice!");
     }
     
-    static void createHackathon(ArrayList<Event> events, ArrayList<Hackathon> hackathons){
+    static void createHackathon(ArrayList<Event> events){
         Hackathon hackathon = new Hackathon();
         hackathon.getDetails();
         hackathon.additional();
-        events.add(hackathon);
-        hackathons.add(hackathon);
+        events.add((Event)hackathon);
     }
     
-    static void createConcert(ArrayList<Event> events, ArrayList<Concert> concerts){
+    static void createConcert(ArrayList<Event> events){
         Concert concert = new Concert();
         concert.getDetails();
         concert.additional();
-        events.add(concert);
-        concerts.add(concert);
+        events.add((Event)concert);
     }
     
-    static void createWorkshop(ArrayList<Event> events, ArrayList<Workshop> workshops){
+    static void createWorkshop(ArrayList<Event> events){
         Workshop workshop = new Workshop();
         workshop.getDetails();
         workshop.additional();
-        events.add(workshop);
-        workshops.add(workshop);
+        events.add((Event)workshop);
     }
     
-    static void viewEvents(ArrayList<Hackathon> hackathons, ArrayList<Concert> concerts, ArrayList<Workshop> workshops){
-        for(Hackathon h:hackathons){
-            h.showAdditional();
-            h.showInfo();
-        }
-        for(Concert c:concerts){
-            c.showAdditional();
-            c.showInfo();
-        }
-        for(Workshop w:workshops){
-            w.showAdditional();
-            w.showInfo();
-        }
-    }
 }
