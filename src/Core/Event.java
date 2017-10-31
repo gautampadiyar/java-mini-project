@@ -25,47 +25,36 @@ public class Event implements Comparable<Event>{
     public Event(String start, String end){
         this.start = start;
         this.end = end;
+        stringToStartDate(start);
+        stringToEndDate(end);
     }
-    
+
     public Event() {}
-    
-    public void getDetails(){
-        //TODO also input for tags
-        String l_name;
-        double lat,lon;
-        
-        Scanner scan = new Scanner(System.in);
+
+    public void stringToStartDate(String start) {
 
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
         sdf.setLenient(false);
-        System.out.print("Enter the event location: ");
-        l_name = scan.nextLine();
-        System.out.print("Enter the latitude of the location: ");
-        lat = scan.nextDouble();
-        System.out.print("Enter the longitude of the location: ");
-        lon = scan.nextDouble();
-        scan.nextLine();
-
-        loc = new Location(l_name,lat,lon);
-        System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
-        start = scan.nextLine();
 
         startDate = new Date();
         try {
             startDate = sdf.parse(start);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             System.out.println("Parse error!");
-        }
-        finally{
-            if(!startDate.after(currDate)){
+        } finally {
+            if (!startDate.after(currDate)) {
                 System.out.println("Invalid start date entered");
-                System.out.println("Enter a valid date after "+sdf.format(currDate));
+                System.out.println("Enter a valid date after " + sdf.format(currDate));
             }
         }
-        
-        System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
-        end = scan.nextLine();
+    }
+
+    public void stringToEndDate(String end) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("dd/MM/yyyy HH:mm:ss");
+        sdf.setLenient(false);
 
         endDate = new Date();
         try {
@@ -80,6 +69,37 @@ public class Event implements Comparable<Event>{
                 System.out.println("Enter a valid date after "+sdf.format(startDate));
             }
         }
+    }
+
+
+    
+    public void getDetails(){
+        //TODO also input for tags
+        String l_name;
+        double lat,lon;
+        
+        Scanner scan = new Scanner(System.in);
+
+
+        /*
+        System.out.print("Enter the event location: ");
+        l_name = scan.nextLine();
+        System.out.print("Enter the latitude of the location: ");
+        lat = scan.nextDouble();
+        System.out.print("Enter the longitude of the location: ");
+        lon = scan.nextDouble();
+        scan.nextLine();
+        loc = new Location(l_name,lat,lon);
+        */
+        System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+        start = scan.nextLine();
+
+        stringToStartDate(start);
+        
+        System.out.print("Enter the end date and time of the event(dd/mm/yyyy HH:mm:ss): ");
+        end = scan.nextLine();
+
+        stringToEndDate(end);
     }
 
     public void printDates(){
@@ -127,15 +147,13 @@ public class Event implements Comparable<Event>{
         return priority;
     }
 
-    public String getEventName() {
-        return eventName;
-    }
-
     public void setPriority(int priority) {
         this.priority = priority;
     }
-    
-    
+
+    public String getEventName() {
+        return eventName;
+    }
 }
 
 class Location { 
