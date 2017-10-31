@@ -89,7 +89,6 @@ public class Event implements Comparable<Event>{
         System.out.print("Enter the longitude of the location: ");
         lon = scan.nextDouble();
         scan.nextLine();
-
         loc = new Location(l_name,lat,lon);
         */
         System.out.print("Enter the start date and time of the event(dd/mm/yyyy HH:mm:ss): ");
@@ -146,6 +145,10 @@ public class Event implements Comparable<Event>{
 
     public int getPriority() {
         return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public String getEventName() {
