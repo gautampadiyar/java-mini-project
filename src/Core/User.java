@@ -20,12 +20,14 @@ public class User {
             return;
         }
         flag = 1;
-        for(Event x:schedule) {
+        Iterator<Event> iter = schedule.iterator();
+        while(iter.hasNext()) {
+        //for(Event x:schedule) {
+        Event x = iter.next();
             if(x.getEndDate().compareTo(e.getStartDate())>=0) {
                 flag = 0;
                 if(x.getPriority() > 1) {
                     schedule.remove(x);
-                    //WARN hope this doesn't create problems, as i'm traversing the array at x here
                 }
                 else {
                     x.showEventGist();
@@ -39,14 +41,13 @@ public class User {
             while(ch == 'y') {
                 System.out.print("Enter event id : ");
                 String tempId = scan.next();
-                try {
-                    for (Event a : schedule) {
-                        if (a.getEventID().equals(tempId)) {
-                            schedule.remove(a);
-                        }
+                iter = schedule.iterator();
+                while(iter.hasNext()) {
+                //for (Event a : schedule) {
+                    Event a = iter.next();
+                    if (a.getEventID().equals(tempId)) {
+                        schedule.remove(a);
                     }
-                }catch (ConcurrentModificationException ex){
-                    ex.printStackTrace();
                 }
                 System.out.print("Remove another?(y/n) : ");
                 ch = scan.next().charAt(0);
@@ -57,9 +58,11 @@ public class User {
     }
     void setSchedule() {
         schedule = new ArrayList<>();
+        HashSet<Event> prefSet = new HashSet<>();
         ArrayList<Event> pref = new ArrayList<>();
-        pref.addAll(pref1);
-        pref.addAll(pref2);
+        prefSet.addAll(pref1);
+        prefSet.addAll(pref2);
+        pref.addAll(prefSet);
         Collections.sort(pref);
         Event prev = new Event();
         prev.setEndDate("01/01/2000 00:00:00");
