@@ -39,10 +39,14 @@ public class User {
             while(ch == 'y') {
                 System.out.print("Enter event id : ");
                 String tempId = scan.next();
-                for(Event a:schedule) {
-                    if(a.getEventID().equals(tempId)) {
-                        schedule.remove(a);
+                try {
+                    for (Event a : schedule) {
+                        if (a.getEventID().equals(tempId)) {
+                            schedule.remove(a);
+                        }
                     }
+                }catch (ConcurrentModificationException ex){
+                    ex.printStackTrace();
                 }
                 System.out.print("Remove another?(y/n) : ");
                 ch = scan.next().charAt(0);

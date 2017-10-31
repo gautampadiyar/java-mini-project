@@ -71,7 +71,11 @@ public class Event implements Comparable<Event>{
         }
     }
 
-
+    public void setTags(String tags){
+        String values[] = tags.split(",");
+        for(String s: values)
+            this.tags.add(s);
+    }
     
     public void getDetails(){
         //TODO also input for tags
@@ -102,10 +106,6 @@ public class Event implements Comparable<Event>{
         stringToEndDate(end);
     }
 
-    public void printDates(){
-        System.out.println(start+end);
-    }
-
     @Override
     public int compareTo(Event t) {
         if(this.startDate.equals(t.startDate)) {
@@ -128,7 +128,11 @@ public class Event implements Comparable<Event>{
     }
     
     public void showEventGist() {
-        System.out.println(this.eventID + " " + this.eventName);
+
+        System.out.print(this.eventID + " " + this.eventName + " " + start + " - " + end + " ");
+        for(String s: this.tags)
+            System.out.print(s + ", ");
+        System.out.print("\n");
     }
     
     public Date getStartDate() {

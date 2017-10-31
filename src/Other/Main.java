@@ -47,8 +47,10 @@ public class Main {
                                     createConcert();
                                 else if(create == 3)
                                     createWorkshop();
-                                else if(create == 4)
+                                else if(create == 4) {
                                     createEvent();
+                                    addEventInfoToFirebase(new Event("03/12/2017 14:15:00", "03/12/2017 14:55:00"));
+                                }
                                 break;
                             case 2: 
                                 viewEvents();
@@ -79,31 +81,59 @@ public class Main {
             }
         }
     }
-    //TODO combine following 4 into one function.
+    //TODO combine following 4 into one function (something on the lines of contructor overloading)
     //Suggestion, event e. make object inside the if condition. outside call getDetails
     //inside getDetails use instanceOf
     static void createHackathon(){
         Hackathon hackathon = new Hackathon();
         hackathon.getDetails();
         events.add((Event)hackathon);
-    }
+    }// TODO make this a member function of class Hackathon
     
     static void createConcert(){
         Concert concert = new Concert();
         concert.getDetails();
         events.add((Event)concert);
-    }
+    }// TODO make this a member function of class Concert
     
     static void createWorkshop(){
         Workshop workshop = new Workshop();
         workshop.getDetails();
         events.add((Event)workshop);
-    }
+    }// TODO make this a member function of class Workshop
     
     static void createEvent(){
         Event e = new Event();
         e.getDetails();
         events.add(e);
+    }// TODO make this a member function of class Event
+
+    static void addEventInfoToFirebase(Event e){
+        // make this a member function for each type of event
+        // this is only for demonstration of the upload function
+
+        try {
+            Gson g = new Gson();
+            String rawData = g.toJson(e, Event.class);
+            String id = e.getEventID();
+            URL u = new URL("https://java-final-proj.firebaseio.com/fests/Breeze/Events/.json");
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            System.out.println(conn.toString());
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            OutputStream os = conn.getOutputStream();
+            os.write(rawData.getBytes());
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                        + conn.getResponseCode());
+            }
+        }catch (MalformedURLException ex1){
+
+        }catch (IOException ex2){
+
+        }
+
     }
     
     static void viewEvents(){
@@ -115,7 +145,7 @@ public class Main {
 
             Gson sd = new Gson();
 
-            System.out.println(conn.toString());
+            //System.out.println(conn.toString());
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
@@ -129,28 +159,27 @@ public class Main {
             StringBuilder sb = new StringBuilder();
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
-                System.out.println(output);
+                //System.out.println(output);
                 sb.append(output);
             }
             JsonParser parser = new JsonParser();
-            JsonObject jObj = new JsonObject();
-
-            jObj = parser.parse(sb.toString()).getAsJsonObject();
+            JsonObject jObj = parser.parse(sb.toString()).getAsJsonObject();
 
             if (jObj.isJsonObject()) {
                 Set<Map.Entry<String, JsonElement>> ens = ((JsonObject) jObj).entrySet();
                 if (ens != null) {
                     // Iterate JSON Elements with Key values
                     for (Map.Entry<String, JsonElement> en : ens) {
-                        JsonObject child = new JsonObject();
-                        child = en.getValue().getAsJsonObject();
-                        events.add(new Core.Event(child.get("start").getAsString(), child.get("end").getAsString()));
+                        JsonObject child = en.getValue().getAsJsonObject();
+                        Event e = new Event(child.get("start").getAsString(), child.get("end").getAsString());
+                        e.setTags(child.get("tags").getAsString());
+                        events.add(e);
                     }
                 }
             }
 
             for(Event e: events){
-            	e.printDates();
+            	e.showEventGist();
             }
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,3 +191,8 @@ public class Main {
 // Store the cash prizes in an array list
 // Populate the firebase event list along with all relevant details
 // rogue input not handled
+// add event to firebase linking
+
+
+
+//Give organizers a list of the events most people were interested in and suggestions on how to arrange and display events
