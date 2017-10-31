@@ -130,6 +130,12 @@ public class Event implements Comparable<Event>{
     public String getEventName() {
         return eventName;
     }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+    
+    
 }
 
 class Location { 

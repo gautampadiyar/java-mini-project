@@ -88,6 +88,7 @@ public class User {
             //adding is a pain(time complexity wise, O(n) v/s O(1) ). think of a better way to access them. either hash to add, or make id as index
             for(Event a:Main.events) {
                 if(a.getEventID().equals(addId)) {
+                    a.setPriority(1);
                     pref1.add(a);
                 }
             }
@@ -107,7 +108,10 @@ public class User {
         for(String s:pref2Cat) {
             for(Event e:Main.events) {
                 if(e.getTags().contains(s)) {
-                    pref2.add(e);
+                    if(e.getPriority() > 1) {
+                        e.setPriority(2);
+                        pref2.add(e);                        
+                    }
                 }
             }
         }
