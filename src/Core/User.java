@@ -20,14 +20,16 @@ public class User {
             return;
         }
         flag = 1;
-        for(Event x:schedule) {
-            if(x.getEndDate().compareTo(e.getStartDate())>=0) {
-                flag = 0;
+        Iterator<Event> iter = schedule.iterator();
+        while(iter.hasNext()) {
+        //for(Event x:schedule) {
+        Event x = iter.next();
+            if((x.getEndDate().compareTo(e.getStartDate())>=0)&&(x != e)) {
                 if(x.getPriority() > 1) {
-                    schedule.remove(x);
-                    //WARN hope this doesn't create problems, as i'm traversing the array at x here
+                    iter.remove();
                 }
                 else {
+                    flag = 0;
                     x.showEventGist();
                 }
             }
@@ -39,27 +41,31 @@ public class User {
             while(ch == 'y') {
                 System.out.print("Enter event id : ");
                 String tempId = scan.next();
-                try {
-                    for (Event a : schedule) {
-                        if (a.getEventID().equals(tempId)) {
-                            schedule.remove(a);
-                        }
+                iter = schedule.iterator();
+                while(iter.hasNext()) {
+                //for (Event a : schedule) {
+                    Event a = iter.next();
+                    if (a.getEventID().equals(tempId)) {
+                        iter.remove();
                     }
-                }catch (ConcurrentModificationException ex){
-                    ex.printStackTrace();
                 }
                 System.out.print("Remove another?(y/n) : ");
                 ch = scan.next().charAt(0);
             }
         }
         Collections.sort(schedule);
+        if(schedule.size() <= 1) {
+            flag = 1;
+        }
         checkCollision(schedule.get(schedule.size() - 1), flag);
     }
     void setSchedule() {
         schedule = new ArrayList<>();
+        HashSet<Event> prefSet = new HashSet<>();
         ArrayList<Event> pref = new ArrayList<>();
-        pref.addAll(pref1);
-        pref.addAll(pref2);
+        prefSet.addAll(pref1);
+        prefSet.addAll(pref2);
+        pref.addAll(prefSet);
         Collections.sort(pref);
         Event prev = new Event();
         prev.setEndDate("01/01/2000 00:00:00");
@@ -69,6 +75,7 @@ public class User {
                 schedule.add(e);
             }
             else if(e.getPriority() == 1){
+                schedule.add(e);
                 checkCollision(e, 0);
             }
             prev = e;
@@ -89,6 +96,7 @@ public class User {
         while(ch == 'y') {
             System.out.print("Enter ID of the event you wish to attend : ");
             String addId = scan.next();
+            //if event is not present display message
             //adding is a pain(time complexity wise, O(n) v/s O(1) ). think of a better way to access them. either hash to add, or make id as index
             for(Event a:Main.events) {
                 if(a.getEventID().equals(addId)) {
