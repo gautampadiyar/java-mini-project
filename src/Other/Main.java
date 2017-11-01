@@ -22,6 +22,7 @@ public class Main {
         //TODO non-hardcoded logins?
         String username, pass;
         int admin_user = 1, eventChoice = 10,create;
+        fetchEvents();
         while(admin_user != 3) {
             System.out.print("1.Admin\n2.Attendee\n3.Exit\nEnter your choice: ");
             admin_user = scan.nextInt();
@@ -29,7 +30,6 @@ public class Main {
             if(admin_user == 1){
                 System.out.print("\nUsername: ");
                 username = scan.next();
-                //TODO password ipnut in *
                 System.out.print("Password: ");
                 pass = scan.next();
 
@@ -37,22 +37,25 @@ public class Main {
                     System.out.print("\n1.Create Event\n2.View Events\n3.Logout\nEnter your choice: ");
                     eventChoice = scan.nextInt();
                     while(eventChoice!=3){
+                        Event event;
                         switch(eventChoice){
                             case 1:
-                                System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\n4.Create general Event\nEnter your choice: ");
+                                System.out.print("\n1.Create Hackathon\n2.Create Concert\n3.Create Workshop\n4.Create generic Event\nEnter your choice: ");
                                 create = scan.nextInt();
                                 if(create == 1)
-                                    createHackathon();
+                                    event = new Hackathon();
                                 else if(create == 2)
-                                    createConcert();
+                                    event = new Concert();
                                 else if(create == 3)
-                                    createWorkshop();
-                                else if(create == 4) {
-                                    createEvent();
-                                    addEventInfoToFirebase(new Event("03/12/2017 14:15:00", "03/12/2017 14:55:00"));
+                                    event = new Workshop();
+                                else {
+                                    event = new Event();
                                 }
+                                event.getDetails();
+                                events.add(event);
+                                event.addEventInfoToFirebase();
                                 break;
-                            case 2: 
+                            case 2:
                                 viewEvents();
                                 break;
                             case 3: 
@@ -70,7 +73,7 @@ public class Main {
             }
 
             else if(admin_user == 2){
-                User u = new User("Balaji");
+                User u = new User("singleton");
                 u.setPref1();
                 //refresh main.events before refresh schedule
                 u.refreshSchedule();
@@ -81,63 +84,9 @@ public class Main {
             }
         }
     }
-    //TODO combine following 4 into one function (something on the lines of contructor overloading)
-    //Suggestion, event e. make object inside the if condition. outside call getDetails
-    //inside getDetails use instanceOf
-    static void createHackathon(){
-        Hackathon hackathon = new Hackathon();
-        hackathon.getDetails();
-        events.add((Event)hackathon);
-    }// TODO make this a member function of class Hackathon
-    
-    static void createConcert(){
-        Concert concert = new Concert();
-        concert.getDetails();
-        events.add((Event)concert);
-    }// TODO make this a member function of class Concert
-    
-    static void createWorkshop(){
-        Workshop workshop = new Workshop();
-        workshop.getDetails();
-        events.add((Event)workshop);
-    }// TODO make this a member function of class Workshop
-    
-    static void createEvent(){
-        Event e = new Event();
-        e.getDetails();
-        events.add(e);
-    }// TODO make this a member function of class Event
 
-    static void addEventInfoToFirebase(Event e){
-        // make this a member function for each type of event
-        // this is only for demonstration of the upload function
-
-        try {
-            Gson g = new Gson();
-            String rawData = g.toJson(e, Event.class);
-            String id = e.getEventID();
-            URL u = new URL("https://java-final-proj.firebaseio.com/fests/Breeze/Events/.json");
-            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            System.out.println(conn.toString());
-            conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            OutputStream os = conn.getOutputStream();
-            os.write(rawData.getBytes());
-            if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
-            }
-        }catch (MalformedURLException ex1){
-
-        }catch (IOException ex2){
-
-        }
-
-    }
-    
-    static void viewEvents(){
-    	// fetch the events from firebase and display it
+    static void fetchEvents(){
+        // fetch the events from firebase and display it
 
         try {
             URL url = new URL("https://java-final-proj.firebaseio.com/fests/Breeze/Events.json");
@@ -166,33 +115,42 @@ public class Main {
             JsonObject jObj = parser.parse(sb.toString()).getAsJsonObject();
 
             if (jObj.isJsonObject()) {
-                Set<Map.Entry<String, JsonElement>> ens = ((JsonObject) jObj).entrySet();
+                Set<Map.Entry<String, JsonElement>> ens = jObj.entrySet();
                 if (ens != null) {
                     // Iterate JSON Elements with Key values
                     for (Map.Entry<String, JsonElement> en : ens) {
                         JsonObject child = en.getValue().getAsJsonObject();
                         Event e = new Event(child.get("start").getAsString(), child.get("end").getAsString());
                         e.setTags(child.get("tags").getAsString());
+                        e.setEventName(child.get("eventName").getAsString());
                         events.add(e);
                     }
                 }
             }
-
-            for(Event e: events){
-            	e.showEventGist();
-            }
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    static void viewEvents(){
+        for(Event e: events){
+            e.showEventGist();
         }
     }
 }
 
 // Display event schedule with **** for giving indication of duration
-// Store the cash prizes in an array list
-// Populate the firebase event list along with all relevant details
-// rogue input not handled
-// add event to firebase linking
-
-
+// handle input exceptions like string for long
 
 //Give organizers a list of the events most people were interested in and suggestions on how to arrange and display events
+// To make inputs quicker
+/*
+1
+TechFest
+TechFest@12345
+
+04/12/2017 17:10:00
+04/12/2017 17:50:00
+
+*/
